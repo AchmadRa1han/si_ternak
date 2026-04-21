@@ -1,0 +1,32 @@
+{
+  "name": "si-ternak",
+  "version": "1.0.0",
+  "description": "CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure. More information can be found at the [official site](https://codeigniter.com).",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo \"Building assets...\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AchmadRa1han/si_ternak.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/AchmadRa1han/si_ternak/issues"
+  },
+  "homepage": "https://github.com/AchmadRa1han/si_ternak#readme",
+  "dependencies": {
+    "admin-lte": "^4.0.0-rc7",
+    "bootstrap": "^5.3.8",
+    "chart.js": "^4.5.1",
+    "datatables.net-bs4": "^2.3.7",
+    "jquery": "^4.0.0"
+  }
+}
