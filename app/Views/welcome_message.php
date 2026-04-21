@@ -1,98 +1,85 @@
-<?php
-?><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>Welcome to CodeIgniter</title>
-
-	<style type="text/css">
-
-	::selection { background-color: #E13300; color: white; }
-	::-moz-selection { background-color: #E13300; color: white; }
-
-	body {
-		background-color: #fff;
-		margin: 40px;
-		font: 13px/20px normal Helvetica, Arial, sans-serif;
-		color: #4F5155;
-	}
-
-	a {
-		color: #003399;
-		background-color: transparent;
-		font-weight: normal;
-		text-decoration: none;
-	}
-
-	a:hover {
-		color: #97310e;
-	}
-
-	h1 {
-		color: #444;
-		background-color: transparent;
-		border-bottom: 1px solid #D0D0D0;
-		font-size: 19px;
-		font-weight: normal;
-		margin: 0 0 14px 0;
-		padding: 14px 15px 10px 15px;
-	}
-
-	code {
-		font-family: Consolas, Monaco, Courier New, Courier, monospace;
-		font-size: 12px;
-		background-color: #f9f9f9;
-		border: 1px solid #D0D0D0;
-		color: #002166;
-		display: block;
-		margin: 14px 0 14px 0;
-		padding: 12px 10px 12px 10px;
-	}
-
-	#body {
-		margin: 0 15px 0 15px;
-		min-height: 96px;
-	}
-
-	p {
-		margin: 0 0 10px;
-		padding:0;
-	}
-
-	p.footer {
-		text-align: right;
-		font-size: 11px;
-		border-top: 1px solid #D0D0D0;
-		line-height: 32px;
-		padding: 0 10px 0 10px;
-		margin: 20px 0 0 0;
-	}
-
-	#container {
-		margin: 10px;
-		border: 1px solid #D0D0D0;
-		box-shadow: 0 0 8px #D0D0D0;
-	}
-	</style>
+    <meta charset="UTF-8">
+    <title>Si-Ternak - Sitemap Sementara</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 40px; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; border-bottom: 2px solid #eee; padding-bottom: 15px; }
+        .section { margin-bottom: 30px; }
+        .section-title { font-size: 1.2em; font-weight: bold; color: #34495e; margin-bottom: 15px; display: block; border-left: 4px solid #3498db; padding-left: 10px; }
+        .button-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+        .btn { display: block; padding: 12px 15px; background-color: #3498db; color: white; text-decoration: none; text-align: center; border-radius: 4px; transition: background 0.3s; font-size: 0.9em; }
+        .btn:hover { background-color: #2980b9; }
+        .btn-secondary { background-color: #95a5a6; }
+        .btn-secondary:hover { background-color: #7f8c8d; }
+        .footer { text-align: center; margin-top: 40px; font-size: 0.8em; color: #888; }
+    </style>
 </head>
 <body>
 
-<div id="container">
-	<h1>Welcome to CodeIgniter!</h1>
+<div class="container">
+    <h1>Si-Ternak: Temporary Navigator</h1>
+    
+    <div class="section">
+        <span class="section-title">Authentication & Admin</span>
+        <div class="button-grid">
+            <a href="<?= base_url('auth') ?>" class="btn">Login Page</a>
+            <a href="<?= base_url('admin/dashboard') ?>" class="btn">Admin Dashboard</a>
+            <a href="<?= base_url('admin/logout') ?>" class="btn btn-secondary">Logout</a>
+        </div>
+    </div>
 
-	<div id="body">
-		<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
+    <div class="section">
+        <span class="section-title">Main Features</span>
+        <div class="button-grid">
+            <a href="<?= base_url('dashboard') ?>" class="btn">User Dashboard</a>
+            <a href="<?= base_url('inseminasi') ?>" class="btn">Inseminasi Index</a>
+            <a href="<?= base_url('inseminasi/pkb') ?>" class="btn">PKB List</a>
+            <a href="<?= base_url('inseminasi/kelahiran') ?>" class="btn">Kelahiran List</a>
+        </div>
+    </div>
 
-		<p>If you would like to edit this page you'll find it located at:</p>
-		<code>application/views/welcome_message.php</code>
+    <div class="section">
+        <span class="section-title">Master Data</span>
+        <div class="button-grid">
+            <a href="<?= base_url('master/petugas') ?>" class="btn">Data Petugas</a>
+            <a href="<?= base_url('master/peternak') ?>" class="btn">Data Peternak</a>
+            <a href="<?= base_url('master/hewan') ?>" class="btn">Data Hewan</a>
+        </div>
+    </div>
 
-		<p>The corresponding controller for this page is found at:</p>
-		<code>application/controllers/Welcome.php</code>
+    <div class="section">
+        <span class="section-title">Pakan & Produksi</span>
+        <div class="button-grid">
+            <a href="<?= base_url('pakan') ?>" class="btn">Jenis Pakan</a>
+            <a href="<?= base_url('pakan/laporan_produksi') ?>" class="btn">Laporan Produksi</a>
+            <a href="<?= base_url('pakan/laporan_bulanan') ?>" class="btn">Rekap Bulanan</a>
+        </div>
+    </div>
 
-		<p>If you are exploring CodeIgniter for the very first time, you should start by reading the <a href="userguide3/">User Guide</a>.</p>
-	</div>
+    <div class="section">
+        <span class="section-title">Vaksinasi & Perkembangan</span>
+        <div class="button-grid">
+            <a href="<?= base_url('vaksinasi') ?>" class="btn">Vaksinasi Index</a>
+            <a href="<?= base_url('vaksinasi/rekap') ?>" class="btn">Rekap Vaksin</a>
+            <a href="<?= base_url('perkembangan/kelompok') ?>" class="btn">Kelompok Ternak</a>
+            <a href="<?= base_url('perkembangan/laporan') ?>" class="btn">Laporan Perkembangan</a>
+        </div>
+    </div>
 
-	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
+    <div class="section">
+        <span class="section-title">Management</span>
+        <div class="button-grid">
+            <a href="<?= base_url('user') ?>" class="btn">User Management</a>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; <?= date('Y') ?> Si-Ternak - Generated by Gemini CLI
+    </div>
 </div>
 
 </body>
