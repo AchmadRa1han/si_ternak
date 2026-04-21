@@ -16,10 +16,10 @@ class KelahiranModel extends Model
     public function getKelahiran($id = null)
     {
         $builder = $this->db->table($this->table);
-        $builder->select('kelahiran.*, hewan.nama_hewan, peternak.nama_peternak, petugas_lapangan.nama_petugas');
-        $builder->join('hewan', 'hewan.id_hewan = kelahiran.id_hewan', 'left');
-        $builder->join('peternak', 'peternak.id_peternak = hewan.id_peternak', 'left');
-        $builder->join('petugas_lapangan', 'petugas_lapangan.id_petugas = kelahiran.id_petugas', 'left');
+        $builder->select('kelahiran.*, dat_ternak.nama_hewan, dat_pemilik.nama_peternak, dat_petugas.nama_petugas');
+        $builder->join('dat_ternak', 'dat_ternak.id_ternak = kelahiran.id_hewan', 'left');
+        $builder->join('dat_pemilik', 'dat_pemilik.id_pemilik = dat_ternak.id_pemilik', 'left');
+        $builder->join('dat_petugas', 'dat_petugas.id_petugas = kelahiran.id_petugas', 'left');
         
         if ($id) {
             $builder->where('kelahiran.id_laporan', $id);
