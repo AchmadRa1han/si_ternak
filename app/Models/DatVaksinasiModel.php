@@ -4,13 +4,13 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class VaksinasiModel extends Model
+class DatVaksinasiModel extends Model
 {
-    protected $table            = 'laporan_vaksinasi_ternak';
-    protected $primaryKey       = 'id';
+    protected $table            = 'dat_vaksinasi';
+    protected $primaryKey       = 'id_vaksinasi';
     protected $returnType       = 'object';
     protected $allowedFields    = [
-        'id', 'id_program', 'program_vaksinasi', 'id_penyakit', 'penyakit', 
+        'id_vaksinasi', 'id_program', 'program_vaksinasi', 'id_penyakit', 'penyakit', 
         'kecamatan', 'desa', 'tanggal_vaksinasi', 'urutan_vaksinasi', 
         'namapetugas', 'nomorpetugas', 'identifikasihewan', 'eartag', 
         'rumpun', 'hewan', 'jenis_kelamin', 'umur', 'namapemilik', 
