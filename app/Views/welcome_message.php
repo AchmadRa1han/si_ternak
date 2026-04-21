@@ -26,54 +26,54 @@
     <div class="section">
         <span class="section-title">Authentication & Admin</span>
         <div class="button-grid">
-            <a href="<?= base_url('auth') ?>" class="btn">Login Page</a>
-            <a href="<?= base_url('admin/dashboard') ?>" class="btn">Admin Dashboard</a>
-            <a href="<?= base_url('admin/logout') ?>" class="btn btn-secondary">Logout</a>
+            <a href="<?= site_url('auth') ?>" class="btn">Login Page</a>
+            <a href="<?= site_url('admin/dashboard') ?>" class="btn">Admin Dashboard</a>
+            <a href="<?= site_url('admin/logout') ?>" class="btn btn-secondary">Logout</a>
         </div>
     </div>
 
     <div class="section">
         <span class="section-title">Main Features</span>
         <div class="button-grid">
-            <a href="<?= base_url('dashboard') ?>" class="btn">User Dashboard</a>
-            <a href="<?= base_url('inseminasi') ?>" class="btn">Inseminasi Index</a>
-            <a href="<?= base_url('inseminasi/pkb') ?>" class="btn">PKB List</a>
-            <a href="<?= base_url('inseminasi/kelahiran') ?>" class="btn">Kelahiran List</a>
+            <a href="<?= site_url('dashboard') ?>" class="btn">User Dashboard</a>
+            <a href="<?= site_url('inseminasi') ?>" class="btn">Inseminasi Index</a>
+            <a href="<?= site_url('inseminasi/pkb') ?>" class="btn">PKB List</a>
+            <a href="<?= site_url('inseminasi/kelahiran') ?>" class="btn">Kelahiran List</a>
         </div>
     </div>
 
     <div class="section">
         <span class="section-title">Master Data</span>
         <div class="button-grid">
-            <a href="<?= base_url('master/petugas') ?>" class="btn">Data Petugas</a>
-            <a href="<?= base_url('master/peternak') ?>" class="btn">Data Peternak</a>
-            <a href="<?= base_url('master/hewan') ?>" class="btn">Data Hewan</a>
+            <a href="<?= site_url('master/petugas') ?>" class="btn">Data Petugas</a>
+            <a href="<?= site_url('master/peternak') ?>" class="btn">Data Peternak</a>
+            <a href="<?= site_url('master/hewan') ?>" class="btn">Data Hewan</a>
         </div>
     </div>
 
     <div class="section">
         <span class="section-title">Pakan & Produksi</span>
         <div class="button-grid">
-            <a href="<?= base_url('pakan') ?>" class="btn">Jenis Pakan</a>
-            <a href="<?= base_url('pakan/laporan_produksi') ?>" class="btn">Laporan Produksi</a>
-            <a href="<?= base_url('pakan/laporan_bulanan') ?>" class="btn">Rekap Bulanan</a>
+            <a href="<?= site_url('pakan') ?>" class="btn">Jenis Pakan</a>
+            <a href="<?= site_url('pakan/laporan_produksi') ?>" class="btn">Laporan Produksi</a>
+            <a href="<?= site_url('pakan/laporan_bulanan') ?>" class="btn">Rekap Bulanan</a>
         </div>
     </div>
 
     <div class="section">
         <span class="section-title">Vaksinasi & Perkembangan</span>
         <div class="button-grid">
-            <a href="<?= base_url('vaksinasi') ?>" class="btn">Vaksinasi Index</a>
-            <a href="<?= base_url('vaksinasi/rekap') ?>" class="btn">Rekap Vaksin</a>
-            <a href="<?= base_url('perkembangan/kelompok') ?>" class="btn">Kelompok Ternak</a>
-            <a href="<?= base_url('perkembangan/laporan') ?>" class="btn">Laporan Perkembangan</a>
+            <a href="<?= site_url('vaksinasi') ?>" class="btn">Vaksinasi Index</a>
+            <a href="<?= site_url('vaksinasi/rekap') ?>" class="btn">Rekap Vaksin</a>
+            <a href="<?= site_url('perkembangan/kelompok') ?>" class="btn">Kelompok Ternak</a>
+            <a href="<?= site_url('perkembangan/laporan') ?>" class="btn">Laporan Perkembangan</a>
         </div>
     </div>
 
     <div class="section">
         <span class="section-title">Management</span>
         <div class="button-grid">
-            <a href="<?= base_url('user') ?>" class="btn">User Management</a>
+            <a href="<?= site_url('user') ?>" class="btn">User Management</a>
         </div>
     </div>
 
