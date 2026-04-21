@@ -2,10 +2,10 @@
 
 namespace App\Controllers;
 
-use App\Models\PetugasModel;
-use App\Models\PeternakModel;
+use App\Models\DatPetugasModel;
+use App\Models\DatPemilikModel;
 use App\Models\JenisPakanModel;
-use App\Models\HewanModel;
+use App\Models\DatTernakModel;
 
 class Master extends BaseController
 {
@@ -16,10 +16,10 @@ class Master extends BaseController
 
     public function __construct()
     {
-        $this->petugasModel = new PetugasModel();
-        $this->peternakModel = new PeternakModel();
+        $this->petugasModel = new DatPetugasModel();
+        $this->peternakModel = new DatPemilikModel();
         $this->pakanModel = new JenisPakanModel();
-        $this->hewanModel = new HewanModel();
+        $this->hewanModel = new DatTernakModel();
     }
 
     // --- CRUD PETUGAS ---

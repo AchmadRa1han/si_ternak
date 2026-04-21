@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\VaksinasiModel;
+use App\Models\DatVaksinasiModel;
 use CodeIgniter\Files\File;
 
 class Vaksinasi extends BaseController
@@ -11,7 +11,7 @@ class Vaksinasi extends BaseController
 
     public function __construct()
     {
-        $this->vaksinasiModel = new VaksinasiModel();
+        $this->vaksinasiModel = new DatVaksinasiModel();
     }
 
     public function index()

@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\UserModel;
+use App\Models\DatPetugasModel;
 
 class User extends BaseController
 {
@@ -10,7 +10,7 @@ class User extends BaseController
 
     public function __construct()
     {
-        $this->userModel = new UserModel();
+        $this->userModel = new DatPetugasModel();
     }
 
     public function index()

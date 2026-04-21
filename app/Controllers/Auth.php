@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\UserModel;
+use App\Models\DatPetugasModel;
 
 class Auth extends BaseController
 {
@@ -22,7 +22,7 @@ class Auth extends BaseController
 
     public function process_login()
     {
-        $userModel = new UserModel();
+        $userModel = new DatPetugasModel();
         
         // CI4 menggunakan $this->request->getPost()
         $username = $this->request->getPost('username');
@@ -33,7 +33,7 @@ class Auth extends BaseController
         if ($user && $user->is_active == 1) {
             if (password_verify($password, $user->password)) {
                 $session_data = [
-                    'user_id'      => $user->id,
+                    'user_id'      => $user->id_petugas,
                     'username'     => $user->username,
                     'nama_lengkap' => $user->nama_lengkap,
                     'role'         => $user->role,
@@ -41,7 +41,7 @@ class Auth extends BaseController
                 ];
                 session()->set($session_data);
 
-                $userModel->updateLastLogin($user->id);
+                $userModel->updateLastLogin($user->id_petugas);
 
                 return redirect()->to(base_url('dashboard'));
             } else {
