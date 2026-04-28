@@ -1,69 +1,39 @@
-# CodeIgniter 4 Application Starter
+# SI-TERNAK
 
-## What is CodeIgniter?
+**SI-TERNAK** (Sistem Informasi Peternakan) adalah aplikasi berbasis web yang dirancang untuk mengelola data peternakan secara komprehensif, mulai dari manajemen hewan, pelaporan vaksinasi, inseminasi buatan, hingga monitoring produksi pakan.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+## ✨ Fitur Utama
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+*   **Manajemen Data Master**: Pengelolaan data Petugas Lapangan, Peternak, dan Hewan Ternak.
+*   **Sistem Vaksinasi**: Fitur upload laporan vaksinasi secara massal melalui file ZIP (CSV) dengan rekapitulasi performa per petugas.
+*   **Inseminasi & Kelahiran**: Pelacakan riwayat Inseminasi Buatan (IB), Pemeriksaan Kebuntingan (PKB), dan pencatatan kelahiran ternak.
+*   **Manajemen Pakan**: Pencatatan jenis pakan dan laporan produksi pakan bulanan per kelompok ternak.
+*   **Monitoring Populasi**: Laporan bulanan perkembangan populasi ternak (lahir, mati, jual).
+*   **Manajemen Pengguna**: Kontrol akses sistem untuk berbagai level pengguna.
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+## 🎨 UI Philosophy: The Earthy Boldness
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+Aplikasi ini mengusung tema **"The Earthy Boldness"** yang memberikan kesan modern, profesional, dan berwibawa:
+*   **Deep Espresso**: Digunakan untuk navigasi dan elemen utama untuk kesan otoritas.
+*   **Mocha Cream**: Latar belakang lembut yang nyaman di mata.
+*   **Terracotta/Clay**: Aksen warna tanah untuk interaksi dan elemen penting.
+*   **Soft-Edge Design**: Penggunaan radius besar (`rounded-2xl`) dan bayangan halus untuk tampilan yang premium.
 
-## Installation & updates
+## 🚀 Teknologi
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+*   **Framework**: CodeIgniter 4 (PHP 8.1+)
+*   **Styling**: Tailwind CSS
+*   **Interaktivitas**: Alpine.js
+*   **Database**: MySQL
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+## 🛠️ Instalasi
 
-## Setup
+1.  Clone repository.
+2.  Jalankan `composer install`.
+3.  Salin `env` ke `.env` dan sesuaikan konfigurasi database serta `app.baseURL`.
+4.  Jalankan migrasi atau impor database (jika tersedia).
+5.  Akses aplikasi melalui server lokal (misal: `php spark serve`).
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+## 📋 Lisensi
 
-## Important Change with index.php
-
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
-
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
-
-**Please** read the user guide for a better explanation of how CI4 works!
-
-## Repository Management
-
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
-
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
-
-## Server Requirements
-
-PHP version 8.1 or higher is required, with the following extensions installed:
-
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> - The end of life date for PHP 8.1 will be December 31, 2025.
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
-"# si_ternak" 
+Aplikasi ini dikembangkan untuk kebutuhan internal manajemen peternakan. Seluruh hak cipta dilindungi.
