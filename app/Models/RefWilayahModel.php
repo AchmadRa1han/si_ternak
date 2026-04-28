@@ -8,14 +8,14 @@ class RefWilayahModel extends Model
 {
     public function getAllKecamatan()
     {
-        return $this->db->table('ref_kecamatan')
+        return $this->db->table('kode_kecamatan')
             ->orderBy('kecamatan_nama', 'ASC')
             ->get()->getResult();
     }
 
     public function getDesaByKecamatan($kecamatan_id)
     {
-        return $this->db->table('ref_desa')
+        return $this->db->table('kode_desa')
             ->where('kecamatan_id', $kecamatan_id)
             ->orderBy('desa_nama', 'ASC')
             ->get()->getResult();
