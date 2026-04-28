@@ -39,10 +39,9 @@ class Pakan extends BaseController
     public function store()
     {
         $this->jenisPakanModel->insert([
-            'id_jenis_pakan' => $this->request->getPost('id_jenis_pakan'),
-            'nama_jenis'     => $this->request->getPost('nama_jenis'),
-            'kategori'       => $this->request->getPost('kategori'),
-            'satuan'         => $this->request->getPost('satuan')
+            'nama_jenis' => $this->request->getPost('nama_jenis'),
+            'kategori'   => $this->request->getPost('kategori'),
+            'satuan'     => $this->request->getPost('satuan')
         ]);
         return redirect()->to(base_url('pakan'));
     }
@@ -87,11 +86,16 @@ class Pakan extends BaseController
     {
         $detailModel = new DetailProduksiPakanModel();
 
+        $bulan = $this->request->getPost('bulan');
+        $tahun = $this->request->getPost('tahun');
+
         $id_laporan = $this->laporanPakanModel->insert([
-            'id_kelompok' => $this->request->getPost('id_kelompok'),
-            'bulan'       => $this->request->getPost('bulan'),
-            'tahun'       => $this->request->getPost('tahun'),
-            'status'      => 'draft'
+            'id_kelompok'     => $this->request->getPost('id_kelompok'),
+            'bulan'           => $bulan,
+            'tahun'           => $tahun,
+            'periode_laporan' => $tahun . '-' . str_pad($bulan, 2, '0', STR_PAD_LEFT),
+            'status'          => 'draft',
+            'created_by'      => session()->get('user_id')
         ]);
 
         $id_jenis_pakan = $this->request->getPost('id_jenis_pakan');

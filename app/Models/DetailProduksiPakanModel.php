@@ -8,6 +8,7 @@ class DetailProduksiPakanModel extends Model
 {
     protected $table            = 'detail_produksi_pakan';
     protected $primaryKey       = 'id_detail';
+    protected $useAutoIncrement = true;
     protected $returnType       = 'object';
     protected $allowedFields    = ['id_laporan', 'id_jenis_pakan', 'jumlah_produksi'];
 
