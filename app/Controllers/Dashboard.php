@@ -16,26 +16,11 @@ class Dashboard extends BaseController
         $data['title'] = 'Dashboard';
 
         // Data untuk Info Boxes
-        $data['total_kelompok'] = $mDashboard->countKelompok();
-        $data['laporan_perkembangan'] = $mDashboard->countLaporanPerkembangan();
-        $data['total_ib'] = $mDashboard->countIbBulanIni();
-        $data['laporan_pakan'] = $mDashboard->countLaporanPakan();
-        $data['total_hewan'] = $mDashboard->countHewan();
+        $data['total_petugas'] = $mDashboard->countPetugas();
+        $data['total_pemilik'] = $mDashboard->countPemilik();
+        $data['total_ternak'] = $mDashboard->countTernak();
+        $data['total_vaksinasi'] = $mDashboard->countVaksinasi();
 
-        // Data untuk Chart
-        $chart_data = $mDashboard->getPakanChartData();
-        $labels = [];
-        $values = [];
-        $month_names = ["", "Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
-
-        foreach ($chart_data as $row) {
-            $labels[] = $month_names[(int)$row['bulan']] . ' ' . $row['tahun'];
-            $values[] = (int)$row['total_produksi'];
-        }
-
-        $data['chart_labels'] = json_encode($labels);
-        $data['chart_values'] = json_encode($values);
-        
         // Di CI4, view bisa dikembalikan sebagai string yang digabung
         return view('template/header', $data)
              . view('dashboard/v_dashboard', $data)
