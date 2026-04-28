@@ -88,13 +88,6 @@
             </p>
         </div>
     </div>
-    
-    <!-- Back to Portal -->
-    <div class="text-center mt-8">
-        <a href="<?= site_url('/') ?>" class="text-stone-400 hover:text-[#1a120b] text-sm font-bold transition-colors inline-flex items-center gap-2">
-            <i class="fas fa-arrow-left text-xs"></i> Kembali ke Portal Utama
-        </a>
-    </div>
 </div>
 
 </body>
