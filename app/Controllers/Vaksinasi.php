@@ -64,23 +64,39 @@ class Vaksinasi extends BaseController
             $batchData = [];
 
             if (($handle = fopen($csvFilePath, "r")) !== FALSE) {
+                // Map column index to specific keys we want
                 $header = fgetcsv($handle, 0, ",");
+                $expectedColumns = [
+                    'id_program', 'program_vaksinasi', 'id_penyakit', 'penyakit', 
+                    'provinsi', 'kabupaten', 'kecamatan', 'desa', 'tanggal_vaksinasi', 
+                    'urutan_vaksinasi', 'namapetugas', 'nomorpetugas', 'identifikasihewan', 
+                    'eartag', 'rumpun', 'hewan', 'jenis_kelamin', 'umur', 'namapemilik', 
+                    'telppemilik', 'nikpemilik'
+                ];
+
                 while (($row = fgetcsv($handle, 0, ",")) !== FALSE) {
                     if (count($header) != count($row)) continue;
-                    $dataRow = array_combine($header, $row);
+                    
+                    // Filter row logic to only map headers that match our DB columns
+                    $dataRow = [];
+                    foreach ($header as $idx => $colName) {
+                        $cleanColName = strtolower(trim($colName));
+                        if (in_array($cleanColName, $expectedColumns)) {
+                            $dataRow[$cleanColName] = $row[$idx];
+                        }
+                    }
 
                     if (isset($dataRow['kabupaten']) && strtolower(trim($dataRow['kabupaten'])) == 'sinjai') {
-                        $batchData[] = [
-                            'id'                => $dataRow['id'],
-                            'program_vaksinasi' => $dataRow['program_vaksinasi'],
-                            'penyakit'          => $dataRow['penyakit'],
-                            'kecamatan'         => $dataRow['kecamatan'],
-                            'desa'              => $dataRow['desa'],
-                            'tanggal_vaksinasi' => $dataRow['tanggal_vaksinasi'],
-                            'namapetugas'       => $dataRow['namapetugas'],
-                            'eartag'            => $dataRow['eartag'],
-                            'namapemilik'       => $dataRow['namapemilik'],
-                        ];
+                        // Reformat dates from d/m/Y to Y-m-d if needed, though iSikhnas CSVs usually use Y-m-d or d/m/Y
+                        if (isset($dataRow['tanggal_vaksinasi'])) {
+                            $dateParts = explode('/', $dataRow['tanggal_vaksinasi']);
+                            if (count($dateParts) == 3) {
+                                $dataRow['tanggal_vaksinasi'] = $dateParts[2] . '-' . $dateParts[1] . '-' . $dateParts[0];
+                            }
+                        }
+
+                        $dataRow['created_by'] = session()->get('user_id');
+                        $batchData[] = $dataRow;
 
                         if (count($batchData) >= 1000) {
                             $this->vaksinasiModel->insertBatchCustom($batchData);
