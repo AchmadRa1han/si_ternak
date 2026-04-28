@@ -84,8 +84,11 @@
 
       <!-- Laporan Section -->
       <div class="pt-6 pb-2 px-4 text-xs font-bold text-stone-500 uppercase tracking-widest">Laporan Akhir</div>
-      <a href="<?= site_url('vaksinasi/rekap') ?>" class="flex items-center px-4 py-3 text-sm font-semibold rounded-xl hover:bg-[#a27b5c] transition-all duration-300 <?= (strpos(current_url(), 'rekap') !== false) ? 'bg-[#a27b5c]' : '' ?>">
+      <a href="<?= site_url('vaksinasi/rekap') ?>" class="flex items-center px-4 py-3 text-sm font-semibold rounded-xl hover:bg-[#a27b5c] transition-all duration-300 <?= (current_url() == site_url('vaksinasi/rekap')) ? 'bg-[#a27b5c]' : '' ?>">
         <i class="fas fa-file-contract w-6"></i> Rekapitulasi Umum
+      </a>
+      <a href="<?= site_url('vaksinasi/rekap_petugas') ?>" class="flex items-center px-4 py-3 text-sm font-semibold rounded-xl hover:bg-[#a27b5c] transition-all duration-300 <?= (current_url() == site_url('vaksinasi/rekap_petugas')) ? 'bg-[#a27b5c]' : '' ?>">
+        <i class="fas fa-user-check w-6"></i> Rekapitulasi Petugas
       </a>
     </nav>
   </aside>

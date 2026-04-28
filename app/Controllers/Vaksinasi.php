@@ -16,6 +16,18 @@ class Vaksinasi extends BaseController
 
     public function index()
     {
+        $data['title'] = 'Data Vaksinasi Ternak';
+        // Pagination for better performance
+        $data['vaksinasi'] = $this->vaksinasiModel->orderBy('tanggal_vaksinasi', 'DESC')->paginate(20, 'vaksinasi');
+        $data['pager'] = $this->vaksinasiModel->pager;
+        
+        return view('template/header', $data)
+             . view('vaksinasi/v_vaksinasi_index', $data)
+             . view('template/footer');
+    }
+
+    public function upload()
+    {
         $data['title'] = 'Upload Laporan Vaksinasi';
         return view('template/header', $data)
              . view('vaksinasi/v_upload', $data)
@@ -31,17 +43,44 @@ class Vaksinasi extends BaseController
              . view('template/footer');
     }
 
+    public function rekap_petugas()
+    {
+        $periode = $this->request->getGet('periode');
+        $bulan = null;
+        $tahun = null;
+
+        if ($periode) {
+            $parts = explode('-', $periode);
+            if (count($parts) == 2) {
+                $bulan = $parts[0];
+                $tahun = $parts[1];
+            }
+        }
+
+        $data['title'] = 'Rekapitulasi Vaksinasi per Petugas';
+        $data['rekap'] = $this->vaksinasiModel->getRekapByPetugas($bulan, $tahun);
+        $data['grouped_periods'] = $this->vaksinasiModel->getGroupedPeriods();
+        $data['selected_period'] = $periode;
+
+        return view('template/header', $data)
+             . view('vaksinasi/v_rekap_petugas', $data)
+             . view('template/footer');
+    }
+
     public function process_upload()
     {
         $file = $this->request->getFile('zip_file');
 
         if (!$file->isValid()) {
             session()->setFlashdata('error', $file->getErrorString());
-            return redirect()->to(base_url('vaksinasi'));
+            return redirect()->to(base_url('vaksinasi/upload'));
         }
 
         $newName = $file->getRandomName();
         $uploadPath = WRITEPATH . 'uploads/vaksinasi/';
+        if (!is_dir($uploadPath)) {
+            mkdir($uploadPath, 0777, true);
+        }
         $file->move($uploadPath, $newName);
 
         $zipPath = $uploadPath . $newName;
@@ -56,7 +95,7 @@ class Vaksinasi extends BaseController
             $csvFiles = glob($extractPath . '/*.csv');
             if (empty($csvFiles)) {
                 session()->setFlashdata('error', 'File CSV tidak ditemukan di dalam ZIP.');
-                return redirect()->to(base_url('vaksinasi'));
+                return redirect()->to(base_url('vaksinasi/upload'));
             }
 
             $csvFilePath = $csvFiles[0];
@@ -64,7 +103,6 @@ class Vaksinasi extends BaseController
             $batchData = [];
 
             if (($handle = fopen($csvFilePath, "r")) !== FALSE) {
-                // Map column index to specific keys we want
                 $header = fgetcsv($handle, 0, ",");
                 $expectedColumns = [
                     'id_program', 'program_vaksinasi', 'id_penyakit', 'penyakit', 
@@ -77,7 +115,6 @@ class Vaksinasi extends BaseController
                 while (($row = fgetcsv($handle, 0, ",")) !== FALSE) {
                     if (count($header) != count($row)) continue;
                     
-                    // Filter row logic to only map headers that match our DB columns
                     $dataRow = [];
                     foreach ($header as $idx => $colName) {
                         $cleanColName = strtolower(trim($colName));
@@ -87,11 +124,14 @@ class Vaksinasi extends BaseController
                     }
 
                     if (isset($dataRow['kabupaten']) && strtolower(trim($dataRow['kabupaten'])) == 'sinjai') {
-                        // Reformat dates from d/m/Y to Y-m-d if needed, though iSikhnas CSVs usually use Y-m-d or d/m/Y
                         if (isset($dataRow['tanggal_vaksinasi'])) {
-                            $dateParts = explode('/', $dataRow['tanggal_vaksinasi']);
-                            if (count($dateParts) == 3) {
-                                $dataRow['tanggal_vaksinasi'] = $dateParts[2] . '-' . $dateParts[1] . '-' . $dateParts[0];
+                            $dateStr = $dataRow['tanggal_vaksinasi'];
+                            // Try to detect format d/m/Y or Y-m-d
+                            if (strpos($dateStr, '/') !== false) {
+                                $dateParts = explode('/', $dateStr);
+                                if (count($dateParts) == 3) {
+                                    $dataRow['tanggal_vaksinasi'] = $dateParts[2] . '-' . $dateParts[1] . '-' . $dateParts[0];
+                                }
                             }
                         }
 
@@ -112,11 +152,24 @@ class Vaksinasi extends BaseController
                 fclose($handle);
             }
 
+            // Cleanup extracted files
+            $this->deleteDirectory($extractPath);
+
             session()->setFlashdata('success', "Berhasil mengimpor $totalImported data.");
             return redirect()->to(base_url('vaksinasi'));
         } else {
             session()->setFlashdata('error', 'Gagal membuka file ZIP.');
-            return redirect()->to(base_url('vaksinasi'));
+            return redirect()->to(base_url('vaksinasi/upload'));
         }
+    }
+
+    private function deleteDirectory($dir) {
+        if (!file_exists($dir)) return true;
+        if (!is_dir($dir)) return unlink($dir);
+        foreach (scandir($dir) as $item) {
+            if ($item == '.' || $item == '..') continue;
+            if (!$this->deleteDirectory($dir . DIRECTORY_SEPARATOR . $item)) return false;
+        }
+        return rmdir($dir);
     }
 }
