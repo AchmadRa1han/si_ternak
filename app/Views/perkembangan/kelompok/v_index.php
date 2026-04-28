@@ -73,13 +73,12 @@
                             </td>
                         </tr>
                         <?php endforeach; ?>
-                        <?php if(empty($kelompok_list)): ?>
-                        <tr>
-                            <td colspan="6" class="px-6 py-10 text-center text-stone-500 italic">Belum ada data kelompok ternak.</td>
-                        </tr>
-                        <?php endif; ?>
                     </tbody>
                 </table>
+            </div>
+            
+            <div class="p-6 border-t border-stone-100">
+                <?= $pager->links('kelompok', 'tailwind_full') ?>
             </div>
         </div>
     </div>

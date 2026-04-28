@@ -49,10 +49,14 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-stone-100">
-                        <?php foreach($peternak_list as $peternak): ?>
+                        <?php 
+                            $no = 1 + (10 * (($pager->getCurrentPage('peternak') ?? 1) - 1));
+                            foreach($peternak_list as $peternak): 
+                        ?>
                             <tr class="hover:bg-[#fcfaf7] transition-colors duration-300">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-[#1a120b]"><?= esc($peternak->id_peternak) ?></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-[#1a120b]"><?= $no++ ?></td>
                                 <td class="px-6 py-4 text-sm font-medium text-stone-800"><?= esc($peternak->nama_peternak) ?></td>
+
                                 <td class="px-6 py-4 text-sm text-stone-600">
                                     <div class="max-w-xs truncate">
                                         <?= esc($peternak->alamat ? : '-') ?>, <?= esc($peternak->desa) ?>
@@ -75,6 +79,10 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+            </div>
+            
+            <div class="mt-8">
+                <?= $pager->links('peternak', 'tailwind_full') ?>
             </div>
         </div>
     </div>

@@ -22,7 +22,12 @@ class Perkembangan extends BaseController
     public function kelompok()
     {
         $data['title'] = "Data Kelompok Ternak";
-        $data['kelompok_list'] = $this->kelompokModel->getAll();
+        $data['kelompok_list'] = $this->kelompokModel
+            ->select('kelompok_ternak.*, kecamatan.nama_kecamatan as kecamatan_nama, desa.nama_desa as desa_nama')
+            ->join('kecamatan', 'kecamatan.id_kecamatan = kelompok_ternak.id_kecamatan', 'left')
+            ->join('desa', 'desa.id_desa = kelompok_ternak.id_desa', 'left')
+            ->paginate(10, 'kelompok');
+        $data['pager'] = $this->kelompokModel->pager;
         
         return view('template/header', $data)
              . view('perkembangan/kelompok/v_index', $data)
@@ -57,11 +62,18 @@ class Perkembangan extends BaseController
         
         $selected_period = $this->request->getGet('periode');
         $data['laporan_list'] = [];
+        $data['pager'] = null;
 
         if ($selected_period) {
             $parts = explode('-', $selected_period);
             if (count($parts) == 2) {
-                $data['laporan_list'] = $this->laporanModel->getAllWithKelompok($parts[0], $parts[1]);
+                $data['laporan_list'] = $this->laporanModel
+                    ->select('laporan_bulanan.*, kelompok_ternak.nama_kelompok')
+                    ->join('kelompok_ternak', 'kelompok_ternak.id = laporan_bulanan.id_kelompok', 'left')
+                    ->where('laporan_bulanan.bulan', $parts[0])
+                    ->where('laporan_bulanan.tahun', $parts[1])
+                    ->paginate(10, 'laporan_perkembangan');
+                $data['pager'] = $this->laporanModel->pager;
             }
         }
         

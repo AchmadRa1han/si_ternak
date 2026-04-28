@@ -56,8 +56,11 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-stone-100">
-                        <?php $no = 1; foreach($users as $p): ?>
-                        <tr class="hover:bg-[#fcfaf7] transition-colors duration-300 group">
+                        <?php 
+                            $no = 1 + (10 * (($pager->getCurrentPage('user') ?? 1) - 1));
+                            foreach($users as $p): 
+                        ?>
+                            <tr class="hover:bg-[#fcfaf7] transition-colors duration-300 group">
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-stone-500"><?= $no++ ?></td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm font-bold text-[#1a120b]"><?= esc($p->username) ?></div>
@@ -106,6 +109,10 @@
                         <?php endif; ?>
                     </tbody>
                 </table>
+            </div>
+
+            <div class="p-6 border-t border-stone-100">
+                <?= $pager->links('user', 'tailwind_full') ?>
             </div>
         </div>
     </div>

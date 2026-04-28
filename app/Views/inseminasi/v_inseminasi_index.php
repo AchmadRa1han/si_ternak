@@ -51,7 +51,10 @@
                                 </td>
                             </tr>
                         <?php else: ?>
-                            <?php $no = 1; foreach($inseminasi as $ib): ?>
+                            <?php 
+                                $no = 1 + (10 * (($pager->getCurrentPage('ib') ?? 1) - 1));
+                                foreach($inseminasi as $ib): 
+                            ?>
                             <tr class="hover:bg-[#fcfaf7] transition-colors duration-300">
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-stone-600"><?= $no++ ?></td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-stone-800"><?= date('d/m/Y', strtotime($ib->tanggal_ib)) ?></td>
@@ -83,7 +86,11 @@
                         <?php endif; ?>
                     </tbody>
                 </table>
-            </div>
-        </div>
-    </div>
-</div>
+                </div>
+
+                <div class="mt-8">
+                <?= $pager->links('ib', 'tailwind_full') ?>
+                </div>
+                </div>
+                </div>
+                </div>

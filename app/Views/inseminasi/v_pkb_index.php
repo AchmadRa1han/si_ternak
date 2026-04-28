@@ -52,7 +52,10 @@
                                 </td>
                             </tr>
                         <?php else: ?>
-                            <?php $no = 1; foreach($pkb as $p): ?>
+                            <?php 
+                                $no = 1 + (10 * (($pager->getCurrentPage('pkb') ?? 1) - 1));
+                                foreach($pkb as $p): 
+                            ?>
                             <tr class="hover:bg-[#fcfaf7] transition-colors duration-300">
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-stone-600"><?= $no++ ?></td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-stone-800"><?= date('d/m/Y', strtotime($p->tanggal_pkb)) ?></td>
@@ -89,6 +92,10 @@
                         <?php endif; ?>
                     </tbody>
                 </table>
+            </div>
+
+            <div class="mt-8">
+                <?= $pager->links('pkb', 'tailwind_full') ?>
             </div>
         </div>
     </div>

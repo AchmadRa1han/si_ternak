@@ -30,7 +30,14 @@ class Inseminasi extends BaseController
     public function index()
     {
         $data['title'] = 'Data Inseminasi Buatan';
-        $data['inseminasi'] = $this->ibModel->getInseminasi();
+        $data['inseminasi'] = $this->ibModel
+            ->select("inseminasi.*, hewan.jenis_kelamin, peternak.nama_peternak, petugas_lapangan.nama_petugas")
+            ->join("hewan", "hewan.id_hewan = inseminasi.id_hewan", "left")
+            ->join("peternak", "peternak.id_peternak = hewan.id_peternak", "left")
+            ->join("petugas_lapangan", "petugas_lapangan.id_petugas = inseminasi.id_petugas", "left")
+            ->orderBy("inseminasi.tanggal_ib", "DESC")
+            ->paginate(10, 'ib');
+        $data['pager'] = $this->ibModel->pager;
         
         return view('template/header', $data)
              . view('inseminasi/v_inseminasi_index', $data)
@@ -106,7 +113,14 @@ class Inseminasi extends BaseController
     public function pkb()
     {
         $data['title'] = 'Data Pemeriksaan Kebuntingan';
-        $data['pkb'] = $this->pkbModel->getPkb();
+        $data['pkb'] = $this->pkbModel
+            ->select("pkb.*, hewan.nama_hewan, hewan.jenis_kelamin, peternak.nama_peternak, petugas_lapangan.nama_petugas")
+            ->join("hewan", "hewan.id_hewan = pkb.id_hewan", "left")
+            ->join("peternak", "peternak.id_peternak = hewan.id_peternak", "left")
+            ->join("petugas_lapangan", "petugas_lapangan.id_petugas = pkb.id_petugas", "left")
+            ->orderBy("pkb.tanggal_pkb", "DESC")
+            ->paginate(10, 'pkb');
+        $data['pager'] = $this->pkbModel->pager;
         
         return view('template/header', $data)
              . view('inseminasi/v_pkb_index', $data)
@@ -181,7 +195,14 @@ class Inseminasi extends BaseController
     public function kelahiran()
     {
         $data['title'] = 'Data Kelahiran';
-        $data['kelahiran'] = $this->kelahiranModel->getKelahiran();
+        $data['kelahiran'] = $this->kelahiranModel
+            ->select("kelahiran.*, hewan.nama_hewan, peternak.nama_peternak, petugas_lapangan.nama_petugas")
+            ->join("hewan", "hewan.id_hewan = kelahiran.id_hewan", "left")
+            ->join("peternak", "peternak.id_peternak = hewan.id_peternak", "left")
+            ->join("petugas_lapangan", "petugas_lapangan.id_petugas = kelahiran.id_petugas", "left")
+            ->orderBy("kelahiran.tgl_laporan", "DESC")
+            ->paginate(10, 'kelahiran');
+        $data['pager'] = $this->kelahiranModel->pager;
         
         return view('template/header', $data)
              . view('inseminasi/v_kelahiran_index', $data)

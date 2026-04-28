@@ -94,6 +94,6 @@
 
     <!-- Pagination -->
     <div class="mt-8">
-        <?= $pager->links('vaksinasi', 'default_full') ?>
+        <?= $pager->links('vaksinasi', 'tailwind_full') ?>
     </div>
 </div>

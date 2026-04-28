@@ -37,9 +37,12 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-stone-100">
-                        <?php foreach($laporan as $row): ?>
+                        <?php 
+                            $no = 1 + (10 * (($pager->getCurrentPage('laporan_pakan') ?? 1) - 1));
+                            foreach($laporan as $row): 
+                        ?>
                             <tr class="hover:bg-[#fcfaf7] transition-colors duration-300">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-[#1a120b]"><?= esc($row->id_laporan) ?></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-[#1a120b]"><?= $no++ ?></td>
                                 <td class="px-6 py-4 text-sm font-medium text-stone-800"><?= esc($row->nama_kelompok) ?></td>
                                 <td class="px-6 py-4 text-center text-sm text-stone-600">
                                     <span class="font-bold"><?= esc($row->bulan) ?></span> / <?= esc($row->tahun) ?>
@@ -66,6 +69,10 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+            </div>
+
+            <div class="mt-8">
+                <?= $pager->links('laporan_pakan', 'tailwind_full') ?>
             </div>
         </div>
     </div>

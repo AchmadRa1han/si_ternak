@@ -21,7 +21,8 @@ class Pakan extends BaseController
     public function index()
     {
         $data['title'] = 'Data Jenis Pakan';
-        $data['pakan'] = $this->jenisPakanModel->findAll();
+        $data['pakan'] = $this->jenisPakanModel->paginate(10, 'pakan');
+        $data['pager'] = $this->jenisPakanModel->pager;
         
         return view('template/header', $data)
              . view('pakan/v_pakan_index', $data)
@@ -75,7 +76,13 @@ class Pakan extends BaseController
     public function laporan_produksi()
     {
         $data['title'] = 'Daftar Laporan Produksi Pakan';
-        $data['laporan'] = $this->laporanPakanModel->getAllWithGroup();
+        $data['laporan'] = $this->laporanPakanModel
+            ->select('laporan_produksi_pakan.*, kelompok_produksi_pakan.nama_kelompok, SUM(detail_produksi_pakan.jumlah_produksi) as total_produksi')
+            ->join('kelompok_produksi_pakan', 'kelompok_produksi_pakan.id_kelompok = laporan_produksi_pakan.id_kelompok', 'left')
+            ->join('detail_produksi_pakan', 'detail_produksi_pakan.id_laporan = laporan_produksi_pakan.id_laporan', 'left')
+            ->groupBy('laporan_produksi_pakan.id_laporan')
+            ->paginate(10, 'laporan_pakan');
+        $data['pager'] = $this->laporanPakanModel->pager;
         
         return view('template/header', $data)
              . view('pakan/v_laporan_produksi_index', $data)

@@ -16,7 +16,8 @@ class User extends BaseController
     public function index()
     {
         $data['title'] = "Manajemen Pengguna";
-        $data['users'] = $this->userModel->findAll();
+        $data['users'] = $this->userModel->paginate(10, 'user');
+        $data['pager'] = $this->userModel->pager;
         
         return view('template/header', $data)
              . view('user/v_user_index', $data)

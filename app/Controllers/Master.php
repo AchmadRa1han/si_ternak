@@ -26,7 +26,8 @@ class Master extends BaseController
     public function petugas()
     {
         $data['title'] = "Petugas Lapangan";
-        $data['petugas_list'] = $this->petugasModel->findAll();
+        $data['petugas_list'] = $this->petugasModel->paginate(10, 'petugas');
+        $data['pager'] = $this->petugasModel->pager;
         
         return view('template/header', $data)
              . view('master/petugas/v_index', $data)
@@ -75,7 +76,12 @@ class Master extends BaseController
     public function peternak()
     {
         $data['title'] = "Data Peternak";
-        $data['peternak_list'] = $this->peternakModel->getAll();
+        $data['peternak_list'] = $this->peternakModel
+            ->select('peternak.*, COUNT(hewan.id_hewan) as jumlah_hewan')
+            ->join('hewan', 'hewan.id_peternak = peternak.id_peternak', 'left')
+            ->groupBy('peternak.id_peternak')
+            ->paginate(10, 'peternak');
+        $data['pager'] = $this->peternakModel->pager;
         
         return view('template/header', $data)
              . view('master/peternak/v_index', $data)
@@ -124,7 +130,11 @@ class Master extends BaseController
     public function hewan()
     {
         $data['title'] = "Data Hewan";
-        $data['hewan_list'] = $this->hewanModel->getAll();
+        $data['hewan_list'] = $this->hewanModel
+            ->select('hewan.*, peternak.nama_peternak')
+            ->join('peternak', 'peternak.id_peternak = hewan.id_peternak', 'left')
+            ->paginate(10, 'hewan');
+        $data['pager'] = $this->hewanModel->pager;
         
         return view('template/header', $data)
              . view('master/hewan/v_index', $data)

@@ -50,9 +50,12 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-stone-100">
-                        <?php foreach($hewan_list as $hewan): ?>
+                        <?php 
+                            $no = 1 + (10 * (($pager->getCurrentPage('hewan') ?? 1) - 1));
+                            foreach($hewan_list as $hewan): 
+                        ?>
                             <tr class="hover:bg-[#fcfaf7] transition-colors duration-300">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-[#1a120b]"><?= esc($hewan->id_hewan) ?></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-[#1a120b]"><?= $no++ ?></td>
                                 <td class="px-6 py-4 text-sm font-medium text-stone-800"><?= esc($hewan->nama_hewan) ?></td>
                                 <td class="px-6 py-4 text-sm text-stone-600"><?= esc($hewan->nama_peternak) ?></td>
                                 <td class="px-6 py-4 text-center">
@@ -84,6 +87,10 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+            </div>
+            
+            <div class="mt-8">
+                <?= $pager->links('hewan', 'tailwind_full') ?>
             </div>
         </div>
     </div>

@@ -90,7 +90,10 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-stone-100">
-                            <?php $no = 1; foreach($laporan_list as $item): ?>
+                            <?php 
+                                $no = 1 + (10 * (($pager->getCurrentPage('laporan_perkembangan') ?? 1) - 1));
+                                foreach($laporan_list as $item): 
+                            ?>
                             <tr class="hover:bg-[#fcfaf7] transition-colors duration-300">
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-stone-500"><?= $no++ ?></td>
                                 <td class="px-6 py-4 text-sm font-medium text-stone-800"><?= esc($item->nama_kelompok) ?></td>
@@ -126,6 +129,10 @@
                             <?php endforeach; ?>
                         </tbody>
                     </table>
+                </div>
+                
+                <div class="p-6 border-t border-stone-100">
+                    <?= $pager->links('laporan_perkembangan', 'tailwind_full') ?>
                 </div>
             <?php else: ?>
                 <div class="px-6 py-20 text-center">
