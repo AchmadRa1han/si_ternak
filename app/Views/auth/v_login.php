@@ -29,7 +29,7 @@
     
     <!-- Logo & Title -->
     <div class="text-center mb-10">
-        <div class="inline-flex items-center justify-center w-24 h-24 bg-white rounded-3xl shadow-xl mb-6 transform rotate-3 hover:rotate-0 transition-transform duration-500 p-4 border border-stone-100">
+        <div class="inline-flex items-center justify-center w-24 h-24 bg-[#1a120b] rounded-3xl shadow-xl mb-6 transform transition-transform duration-500 p-4 border border-stone-800">
             <img src="<?= base_url('assets/img/logo-sinjai.png') ?>" alt="Logo Sinjai" class="w-full h-full object-contain">
         </div>
         <h1 class="text-4xl font-bold text-[#1a120b] tracking-widest uppercase">SI-TERNAK</h1>
