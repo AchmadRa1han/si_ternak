@@ -1,51 +1,112 @@
-<div class="card">
-    <div class="card-header">
-        <h3 class="card-title">Daftar Pengguna Sistem</h3>
-        <div class="card-tools">
-            <a href="<?php echo site_url('user/add'); ?>" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Tambah User</a>
+<div class="container mx-auto px-6 py-10 bg-[#faf7f2] min-h-screen">
+    <!-- Header Halaman -->
+    <div class="flex justify-between items-center mb-8 border-b border-stone-200 pb-4"
+         x-data="{ show: false }" x-init="setTimeout(() => show = true, 50)"
+         x-show="show" x-transition:enter="transition ease-out duration-700"
+         x-transition:enter-start="opacity-0 transform -translate-y-4">
+        <div>
+            <h1 class="text-3xl font-bold text-[#1a120b] tracking-wide">Daftar Pengguna</h1>
+            <p class="text-stone-500 text-sm mt-1">Manajemen akses dan data pengguna sistem</p>
+        </div>
+        <div class="flex gap-3">
+            <a href="<?= site_url('user/add') ?>" class="inline-flex items-center px-5 py-2.5 bg-[#1a120b] hover:bg-[#a27b5c] text-white text-sm font-bold rounded-xl transition-all duration-300 shadow-sm">
+                <i class="fas fa-plus mr-2 text-xs"></i> Tambah Pengguna
+            </a>
         </div>
     </div>
-    <div class="card-body">
-        <?php if(session()->getFlashdata('success')): ?>
-        <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <h5><i class="icon fas fa-check"></i> Sukses!</h5>
-            <?php echo session()->getFlashdata('success'); ?>
-        </div>
-        <?php endif; ?>
 
-        <table id="example1" class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Username</th>
-                    <th>Nama Lengkap</th>
-                    <th>Role</th>
-                    <th>Status</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php $no=1; foreach($users as $user): ?>
-                <tr>
-                    <td><?php echo $no++; ?></td>
-                    <td><?php echo htmlspecialchars($user->username, ENT_QUOTES, 'UTF-8'); ?></td>
-                    <td><?php echo htmlspecialchars($user->nama_lengkap, ENT_QUOTES, 'UTF-8'); ?></td>
-                    <td><?php echo ucfirst($user->role); ?></td>
-                    <td>
-                        <?php if($user->is_active == 1): ?>
-                            <span class="badge badge-success">Aktif</span>
-                        <?php else: ?>
-                            <span class="badge badge-danger">Tidak Aktif</span>
+    <!-- Alert Success -->
+    <?php if(session()->getFlashdata('success')): ?>
+        <div x-data="{ open: true }" x-show="open" 
+             x-transition:leave="transition ease-in duration-300"
+             x-transition:leave-start="opacity-100"
+             x-transition:leave-end="opacity-0"
+             class="mb-6 flex items-center p-4 text-stone-800 rounded-2xl bg-white border border-stone-200 shadow-sm" role="alert">
+            <div class="w-10 h-10 bg-[#faf7f2] rounded-full flex items-center justify-center mr-4">
+                <i class="fas fa-check text-[#a27b5c]"></i>
+            </div>
+            <div class="text-sm font-bold text-[#1a120b]">
+                <?= session()->getFlashdata('success') ?>
+            </div>
+            <button @click="open = false" type="button" class="ml-auto text-stone-400 hover:text-[#1a120b] transition-colors">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    <?php endif; ?>
+
+    <!-- Konten Table dengan Reveal Animation -->
+    <div class="bg-white rounded-2xl shadow-sm border border-stone-100 overflow-hidden"
+         x-data="{ show: false }" 
+         x-init="setTimeout(() => show = true, 150)"
+         x-show="show"
+         x-transition:enter="transition ease-out duration-500"
+         x-transition:enter-start="opacity-0 transform translate-y-8">
+        
+        <div class="p-0">
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-stone-200">
+                    <thead class="bg-stone-50">
+                        <tr>
+                            <th class="px-6 py-5 text-left text-xs font-bold text-[#1a120b] uppercase tracking-widest">No</th>
+                            <th class="px-6 py-5 text-left text-xs font-bold text-[#1a120b] uppercase tracking-widest">NIK / Username</th>
+                            <th class="px-6 py-5 text-left text-xs font-bold text-[#1a120b] uppercase tracking-widest">Nama Lengkap</th>
+                            <th class="px-6 py-5 text-left text-xs font-bold text-[#1a120b] uppercase tracking-widest">Jabatan</th>
+                            <th class="px-6 py-5 text-left text-xs font-bold text-[#1a120b] uppercase tracking-widest">Status</th>
+                            <th class="px-6 py-5 text-right text-xs font-bold text-[#1a120b] uppercase tracking-widest">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-stone-100">
+                        <?php $no = 1; foreach($users as $p): ?>
+                        <tr class="hover:bg-[#fcfaf7] transition-colors duration-300 group">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-stone-500"><?= $no++ ?></td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-bold text-[#1a120b]"><?= esc($p->username) ?></div>
+                                <div class="text-xs text-stone-400 uppercase tracking-tighter"><?= esc($p->email) ?></div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-stone-800"><?= esc($p->nama_lengkap) ?></div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2.5 py-1 bg-stone-100 text-stone-600 rounded-lg text-xs font-bold uppercase tracking-wider">
+                                    <?= esc($p->role) ?>
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <?php if ($p->is_active): ?>
+                                <span class="flex items-center text-xs font-bold text-green-600">
+                                    <span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span> Aktif
+                                </span>
+                                <?php else: ?>
+                                <span class="flex items-center text-xs font-bold text-red-600">
+                                    <span class="w-2 h-2 bg-red-500 rounded-full mr-2"></span> Tidak Aktif
+                                </span>
+                                <?php endif; ?>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <a href="<?= site_url('user/edit/'.$p->id) ?>" 
+                                       class="inline-flex items-center px-3 py-1.5 bg-stone-50 text-[#1a120b] hover:bg-[#a27b5c] hover:text-white rounded-xl transition-all duration-300">
+                                        <i class="fas fa-edit mr-1.5 text-[10px]"></i> Edit
+                                    </a>
+                                    <a href="<?= site_url('user/delete/'.$p->id) ?>" 
+                                       class="inline-flex items-center px-3 py-1.5 bg-stone-50 text-red-600 hover:bg-red-600 hover:text-white rounded-xl transition-all duration-300"
+                                       onclick="return confirm('Hapus data pengguna ini?')">
+                                        <i class="fas fa-trash mr-1.5 text-[10px]"></i> Hapus
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                        <?php if (empty($users)): ?>
+                        <tr>
+                            <td colspan="6" class="px-6 py-10 text-center text-stone-400 italic">
+                                Belum ada data pengguna yang terdaftar.
+                            </td>
+                        </tr>
                         <?php endif; ?>
-                    </td>
-                    <td>
-                        <a href="<?php echo site_url('user/edit/'.$user->id); ?>" class="btn btn-info btn-xs"><i class="fas fa-edit"></i> Edit</a>
-                        <a href="<?php echo site_url('user/delete/'.$user->id); ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?');" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Hapus</a>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
