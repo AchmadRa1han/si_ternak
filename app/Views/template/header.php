@@ -3,257 +3,122 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- <title>SI TERNAK | <?php echo $title; ?></title> -->
-<title>SI TERNAK<?php echo !empty($title) ? " | " . $title : ""; ?></title>
+  <title>SI TERNAK | <?= $title ?? 'Dashboard' ?></title>
 
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <link rel="stylesheet" href="<?php echo base_url('assets/admin_template/adminlte/plugins/fontawesome-free/css/all.min.css'); ?>">
-  <link rel="stylesheet" href="<?php echo base_url('assets/admin_template/adminlte/dist/css/adminlte.min.css'); ?>">
-  <link rel="stylesheet" href="<?php echo base_url('assets/admin_template/adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css'); ?>">
-  
-  <?php // Tambahkan CSS untuk plugin lain jika diperlukan, contoh: DataTables ?>
-  <link rel="stylesheet" href="<?php echo base_url('assets/admin_template/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css'); ?>">
-  <link rel="stylesheet" href="<?php echo base_url('assets/css/custom.css'); ?>">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Alpine.js -->
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-  
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper">
+<body class="bg-[#faf7f2] min-h-screen">
 
-  <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="<?php echo base_url('assets/img/logo_sinjai.png'); ?>" alt="AdminLTELogo" height="60" width="60">
-  </div>
+<div class="flex h-screen overflow-hidden" x-data="{ sidebarOpen: true }">
+  <!-- Sidebar -->
+  <aside class="bg-[#1a120b] text-white w-64 flex-shrink-0 transition-all duration-300 ease-in-out overflow-y-auto" 
+         :class="sidebarOpen ? 'ml-0' : '-ml-64'">
+    <div class="p-6 flex items-center justify-between border-b border-stone-800 sticky top-0 bg-[#1a120b] z-10">
+      <span class="text-2xl font-bold tracking-widest text-[#a27b5c]">SI-TERNAK</span>
+    </div>
+    <nav class="mt-6 px-4 pb-10 space-y-2">
+      <!-- Main Section -->
+      <div class="pb-2 px-4 text-xs font-bold text-stone-500 uppercase tracking-widest">Main</div>
+      <a href="<?= site_url('dashboard') ?>" class="flex items-center px-4 py-3 text-sm font-semibold rounded-xl hover:bg-[#a27b5c] transition-all duration-300 <?= (current_url() == site_url('dashboard')) ? 'bg-[#a27b5c]' : '' ?>">
+        <i class="fas fa-tachometer-alt w-6"></i> Dashboard
+      </a>
 
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-    </ul>
+      <!-- Master Data Section -->
+      <div class="pt-6 pb-2 px-4 text-xs font-bold text-stone-500 uppercase tracking-widest">Master Data</div>
+      <a href="<?= site_url('user') ?>" class="flex items-center px-4 py-3 text-sm font-semibold rounded-xl hover:bg-[#a27b5c] transition-all duration-300 <?= (strpos(current_url(), 'user') !== false) ? 'bg-[#a27b5c]' : '' ?>">
+        <i class="fas fa-users-cog w-6"></i> Manajemen Petugas
+      </a>
+      <a href="<?= site_url('master/peternak') ?>" class="flex items-center px-4 py-3 text-sm font-semibold rounded-xl hover:bg-[#a27b5c] transition-all duration-300 <?= (strpos(current_url(), 'peternak') !== false) ? 'bg-[#a27b5c]' : '' ?>">
+        <i class="fas fa-user-friends w-6"></i> Data Pemilik
+      </a>
+      <a href="<?= site_url('master/hewan') ?>" class="flex items-center px-4 py-3 text-sm font-semibold rounded-xl hover:bg-[#a27b5c] transition-all duration-300 <?= (strpos(current_url(), 'hewan') !== false) ? 'bg-[#a27b5c]' : '' ?>">
+        <i class="fas fa-paw w-6"></i> Data Ternak
+      </a>
 
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-user-circle"></i>
-          <span>Administrator</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">User Menu</span>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-user mr-2"></i> Profil Saya
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="<?php echo site_url('auth/logout'); ?>" class="dropdown-item dropdown-footer bg-danger">
-            <i class="fas fa-sign-out-alt mr-2"></i> Logout
-          </a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-          <i class="fas fa-expand-arrows-alt"></i>
-        </a>
-      </li>
-    </ul>
-  </nav>
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <a href="<?php echo site_url('dashboard'); ?>" class="brand-link">
-      <img src="<?php echo base_url('assets/img/logo_sinjai.png'); ?>" alt="Logo Sinjai" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">SI TERNAK</span>
-    </a>
+      <!-- Pelayanan Section -->
+      <div class="pt-6 pb-2 px-4 text-xs font-bold text-stone-500 uppercase tracking-widest">Pelayanan</div>
+      <a href="<?= site_url('inseminasi') ?>" class="flex items-center px-4 py-3 text-sm font-semibold rounded-xl hover:bg-[#a27b5c] transition-all duration-300 <?= (strpos(current_url(), 'inseminasi') !== false && strpos(current_url(), 'pkb') === false && strpos(current_url(), 'kelahiran') === false) ? 'bg-[#a27b5c]' : '' ?>">
+        <i class="fas fa-syringe w-6"></i> Inseminasi Buatan
+      </a>
+      <a href="<?= site_url('inseminasi/pkb') ?>" class="flex items-center px-4 py-3 text-sm font-semibold rounded-xl hover:bg-[#a27b5c] transition-all duration-300 <?= (strpos(current_url(), 'pkb') !== false) ? 'bg-[#a27b5c]' : '' ?>">
+        <i class="fas fa-stethoscope w-6"></i> Pemeriksaan PKB
+      </a>
+      <a href="<?= site_url('inseminasi/kelahiran') ?>" class="flex items-center px-4 py-3 text-sm font-semibold rounded-xl hover:bg-[#a27b5c] transition-all duration-300 <?= (strpos(current_url(), 'kelahiran') !== false) ? 'bg-[#a27b5c]' : '' ?>">
+        <i class="fas fa-baby w-6"></i> Data Kelahiran
+      </a>
+      <a href="<?= site_url('vaksinasi') ?>" class="flex items-center px-4 py-3 text-sm font-semibold rounded-xl hover:bg-[#a27b5c] transition-all duration-300 <?= (strpos(current_url(), 'vaksinasi') !== false && strpos(current_url(), 'rekap') === false) ? 'bg-[#a27b5c]' : '' ?>">
+        <i class="fas fa-shield-virus w-6"></i> Vaksinasi
+      </a>
 
-    <div class="sidebar">
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="<?php echo base_url('assets/admin_template/adminlte/dist/img/avatar5.png'); ?>" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">Administrator</a>
-        </div>
-      </div>
+      <!-- Pakan & Produksi -->
+      <div class="pt-6 pb-2 px-4 text-xs font-bold text-stone-500 uppercase tracking-widest">Pakan & Produksi</div>
+      <a href="<?= site_url('pakan') ?>" class="flex items-center px-4 py-3 text-sm font-semibold rounded-xl hover:bg-[#a27b5c] transition-all duration-300 <?= (strpos(current_url(), 'pakan/index') !== false || current_url() == site_url('pakan')) ? 'bg-[#a27b5c]' : '' ?>">
+        <i class="fas fa-seedling w-6"></i> Stok Pakan
+      </a>
+      <a href="<?= site_url('pakan/laporan_produksi') ?>" class="flex items-center px-4 py-3 text-sm font-semibold rounded-xl hover:bg-[#a27b5c] transition-all duration-300 <?= (strpos(current_url(), 'laporan_produksi') !== false) ? 'bg-[#a27b5c]' : '' ?>">
+        <i class="fas fa-industry w-6"></i> Laporan Produksi
+      </a>
+      <a href="<?= site_url('pakan/laporan_bulanan') ?>" class="flex items-center px-4 py-3 text-sm font-semibold rounded-xl hover:bg-[#a27b5c] transition-all duration-300 <?= (strpos(current_url(), 'laporan_bulanan') !== false) ? 'bg-[#a27b5c]' : '' ?>">
+        <i class="fas fa-calendar-check w-6"></i> Laporan Bulanan
+      </a>
 
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-header">MAIN NAVIGATION</li>
-          <li class="nav-item">
-            <a href="<?php echo site_url('dashboard'); ?>" class="nav-link <?php echo ($this->uri->segment(1) == 'dashboard' || $this->uri->segment(1) == '') ? 'active' : ''; ?>">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>Dashboard</p>
-            </a>
-          </li>
+      <!-- Perkembangan Section -->
+      <div class="pt-6 pb-2 px-4 text-xs font-bold text-stone-500 uppercase tracking-widest">Perkembangan</div>
+      <a href="<?= site_url('perkembangan/kelompok') ?>" class="flex items-center px-4 py-3 text-sm font-semibold rounded-xl hover:bg-[#a27b5c] transition-all duration-300 <?= (strpos(current_url(), 'kelompok') !== false) ? 'bg-[#a27b5c]' : '' ?>">
+        <i class="fas fa-layer-group w-6"></i> Kelompok Ternak
+      </a>
+      <a href="<?= site_url('perkembangan/laporan') ?>" class="flex items-center px-4 py-3 text-sm font-semibold rounded-xl hover:bg-[#a27b5c] transition-all duration-300 <?= (strpos(current_url(), 'laporan') !== false && strpos(current_url(), 'pakan') === false) ? 'bg-[#a27b5c]' : '' ?>">
+        <i class="fas fa-chart-line w-6"></i> Laporan Populasi
+      </a>
 
-          <li class="nav-item <?php echo $this->uri->segment(1) == 'perkembangan' ? 'menu-open' : ''; ?>">
-            <a href="#" class="nav-link <?php echo $this->uri->segment(1) == 'perkembangan' ? 'active' : ''; ?>">
-              <i class="nav-icon fas fa-chart-line"></i>
-              <p>
-                Perkembangan Ternak
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?php echo site_url('perkembangan/kelompok'); ?>" class="nav-link <?php echo $this->uri->segment(2) == 'kelompok' ? 'active' : ''; ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Data Kelompok Ternak</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo site_url('perkembangan/laporan'); ?>" class="nav-link <?php echo $this->uri->segment(2) == 'laporan' ? 'active' : ''; ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Laporan Bulanan</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+      <!-- Laporan Section -->
+      <div class="pt-6 pb-2 px-4 text-xs font-bold text-stone-500 uppercase tracking-widest">Laporan Akhir</div>
+      <a href="<?= site_url('vaksinasi/rekap') ?>" class="flex items-center px-4 py-3 text-sm font-semibold rounded-xl hover:bg-[#a27b5c] transition-all duration-300 <?= (strpos(current_url(), 'rekap') !== false) ? 'bg-[#a27b5c]' : '' ?>">
+        <i class="fas fa-file-contract w-6"></i> Rekapitulasi Umum
+      </a>
+    </nav>
+  </aside>
 
-          <li class="nav-item <?php echo $this->uri->segment(1) == 'inseminasi' ? 'menu-open' : ''; ?>">
-            <a href="#" class="nav-link <?php echo $this->uri->segment(1) == 'inseminasi' ? 'active' : ''; ?>">
-              <i class="nav-icon fas fa-venus-mars"></i>
-              <p>
-                Reproduksi
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-               <li class="nav-item">
-                <a href="<?= site_url('inseminasi') ?>" class="nav-link <?= ($this->uri->segment(1) == 'inseminasi' && ($this->uri->segment(2) == '' || $this->uri->segment(2) == 'index')) ? 'active' : '' ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Data Inseminasi</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?= site_url('inseminasi/kelahiran') ?>" class="nav-link <?= $this->uri->segment(2) == 'kelahiran' ? 'active' : '' ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Data Kelahiran</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?= site_url('inseminasi/pkb') ?>" class="nav-link <?= $this->uri->segment(2) == 'pkb' ? 'active' : '' ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Pemeriksaan Kebuntingan</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          
-          <li class="nav-item <?php echo $this->uri->segment(1) == 'pakan' ? 'menu-open' : ''; ?>">
-            <a href="#" class="nav-link <?php echo $this->uri->segment(1) == 'pakan' ? 'active' : ''; ?>">
-              <i class="nav-icon fas fa-seedling"></i>
-              <p>
-                Produksi Pakan
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?php echo site_url('pakan/laporan_produksi'); ?>" class="nav-link <?php echo $this->uri->segment(2) == 'laporan_produksi' ? 'active' : ''; ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Input Laporan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo site_url('pakan/laporan_bulanan'); ?>" class="nav-link <?php echo $this->uri->segment(2) == 'laporan_bulanan' ? 'active' : ''; ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Laporan Bulanan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?php echo site_url('pakan'); ?>" class="nav-link <?php echo ($this->uri->segment(1) == 'pakan' && ($this->uri->segment(2) == '' || $this->uri->segment(2) == 'index')) ? 'active' : ''; ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Jenis Pakan</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-
-          <li class="nav-item <?php echo $this->uri->segment(1) == 'vaksinasi' ? 'menu-open' : ''; ?>">
-            <a href="#" class="nav-link <?php echo $this->uri->segment(1) == 'vaksinasi' ? 'active' : ''; ?>">
-              <i class="nav-icon fas fa-syringe"></i>
-              <p>
-                Vaksinasi
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-               <li class="nav-item">
-                <a href="<?= site_url('vaksinasi') ?>" class="nav-link <?= ($this->uri->segment(1) == 'vaksinasi' && ($this->uri->segment(2) == '' || $this->uri->segment(2) == 'index')) ? 'active' : '' ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Upload Laporan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?= site_url('vaksinasi/rekap') ?>" class="nav-link <?= $this->uri->segment(2) == 'rekap' ? 'active' : '' ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Rekap per Bulan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="<?= site_url('vaksinasi/rekap_petugas') ?>" class="nav-link <?= $this->uri->segment(2) == 'rekap_petugas' ? 'active' : '' ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Rekap per Petugas</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          
-          
-          <li class="nav-item">
-            <a href="<?php echo site_url('laporan'); ?>" class="nav-link <?php echo $this->uri->segment(1) == 'laporan' ? 'active' : ''; ?>">
-              <i class="nav-icon fas fa-file-alt"></i>
-              <p>Generate Laporan</p>
-            </a>
-          </li>
-
-          <li class="nav-header">MASTER DATA</li>
-          <li class="nav-item">
-             <a href="<?php echo site_url('master/petugas'); ?>" class="nav-link <?php echo ($this->uri->segment(1) == 'master' && $this->uri->segment(2) == 'petugas') ? 'active' : ''; ?>">
-              <i class="fas fa-id-card-alt nav-icon"></i>
-              <p>Petugas Lapangan</p>
-            </a>
-          </li>
-          <li class="nav-item">
-             <a href="<?php echo site_url('master/peternak'); ?>" class="nav-link <?php echo ($this->uri->segment(1) == 'master' && $this->uri->segment(2) == 'peternak') ? 'active' : ''; ?>">
-              <i class="fas fa-users nav-icon"></i>
-              <p>Data Peternak</p>
-            </a>
-          </li>
-          <li class="nav-item">
-             <a href="<?php echo site_url('master/hewan'); ?>" class="nav-link <?php echo ($this->uri->segment(1) == 'master' && $this->uri->segment(2) == 'hewan') ? 'active' : ''; ?>">
-              <i class="fas fa-paw nav-icon"></i>
-              <p>Data Hewan</p>
-            </a>
-          </li>
-           <li class="nav-item">
-             <a href="<?php echo site_url('master/pakan'); ?>" class="nav-link <?php echo ($this->uri->segment(1) == 'master' && $this->uri->segment(2) == 'pakan') ? 'active' : ''; ?>">
-              <i class="fas fa-box nav-icon"></i>
-              <p>Jenis Pakan</p>
-            </a>
-          </li>
-          <li class="nav-item">
-             <a href="<?php echo site_url('master/pengguna'); ?>" class="nav-link <?php echo ($this->uri->segment(1) == 'master' && $this->uri->segment(2) == 'pengguna') ? 'active' : ''; ?>">
-              <i class="fas fa-user-cog nav-icon"></i>
-              <p>Manajemen Pengguna</p>
-            </a>
-          </li>
-        </ul>
-      </nav>
-      </div>
-    </aside>
-
-  <div class="content-wrapper">
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <title>SI TERNAK</title>
-          </div><div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="<?php echo site_url('dashboard'); ?>">Home</a></li>
-              <li class="breadcrumb-item active"><?php echo !empty($title) ? $title : ""; ?></li>
-            </ol>
+  <!-- Main Content Area -->
+  <div class="flex-1 flex flex-col min-w-0 h-screen">
+    <!-- Navbar -->
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-10 border-b border-stone-200 flex-shrink-0">
+      <div class="px-6 h-20 flex items-center justify-between">
+        <button @click="sidebarOpen = !sidebarOpen" class="text-stone-600 hover:text-[#1a120b] focus:outline-none transition-colors p-2 hover:bg-stone-50 rounded-lg">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+        <div class="flex items-center gap-6">
+          <div class="hidden md:flex flex-col items-end">
+            <span class="text-sm font-bold text-[#1a120b]"><?= session()->get('nama_lengkap') ?? 'Petugas Lapangan' ?></span>
+            <span class="text-[10px] font-bold text-stone-400 uppercase tracking-tighter">Sistem Informasi Peternakan</span>
           </div>
+          <a href="<?= site_url('auth/logout') ?>" class="px-4 py-2 text-sm font-bold text-white bg-red-600 hover:bg-red-700 rounded-xl transition-all duration-300 flex items-center gap-2 shadow-sm shadow-red-100">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </a>
         </div>
+      </div>
+    </header>
+
+    <!-- Page Content Scrollable Area -->
+    <div class="flex-1 overflow-y-auto">
+      <main class="p-8">
+        <div class="mb-10 border-b border-stone-200 pb-6"
+             x-data="{ show: false }" 
+             x-init="setTimeout(() => show = true, 50)"
+             x-show="show"
+             x-transition:enter="transition ease-out duration-700"
+             x-transition:enter-start="opacity-0 -translate-y-4"
+             x-transition:enter-end="opacity-100 translate-y-0">
+          <h1 class="text-3xl font-bold text-[#1a120b] tracking-wide"><?= $title ?? 'Dashboard' ?></h1>
         </div>
-        </div>
-    <section class="content">
-      <div class="container-fluid">

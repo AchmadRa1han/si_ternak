@@ -1,30 +1,20 @@
-</div>
-</section>
-    </div>
-  <aside class="control-sidebar control-sidebar-dark">
-    </aside>
-  <footer class="main-footer">
-    <strong>Copyright &copy; 2024-<?php echo date('Y'); ?> <a href="#">Dinas Peternakan dan Kesehatan Hewan</a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>SI TERNAK</b> Versi 1.0
-    </div>
-  </footer>
-</div>
-<script src="<?php echo base_url('assets/admin_template/adminlte/plugins/jquery/jquery.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/admin_template/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/admin_template/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/admin_template/adminlte/dist/js/adminlte.min.js'); ?>"></script>
+    </main>
+    <!-- /.main content -->
 
-<?php // Tambahkan JS untuk plugin lain jika diperlukan, contoh: DataTables ?>
-<script src="<?php echo base_url('assets/admin_template/adminlte/plugins/datatables/jquery.dataTables.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/admin_template/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js'); ?>"></script>
-<script>
-  // Contoh inisialisasi plugin
-  $(function () {
-    $("#example1").DataTable();
-  });
-</script>
+    <footer class="bg-white border-t border-stone-200 p-8">
+      <div class="container mx-auto text-center text-sm font-medium text-stone-500">
+        <span class="tracking-wide">Copyright &copy; <?= date('Y') ?> <a href="#" class="text-[#a27b5c] hover:text-[#1a120b] transition-colors font-bold">SI-TERNAK</a>.</span>
+        <span class="mx-2 text-stone-300">|</span>
+        <span class="tracking-wide">All rights reserved.</span>
+        <div class="mt-2 text-xs font-bold text-stone-400">
+          <b>Version</b> 1.0.0
+        </div>
+      </div>
+    </footer>
+  </div>
+  <!-- /.flex-1 -->
+</div>
+<!-- ./wrapper -->
 
 </body>
 </html>
