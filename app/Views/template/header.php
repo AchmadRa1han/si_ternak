@@ -14,6 +14,8 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
+  <link rel="icon" type="image/png" href="<?= base_url('assets/img/logo-sinjai.png') ?>">
+
   <style>
     body { font-family: 'Inter', sans-serif; }
   </style>
@@ -24,8 +26,9 @@
   <!-- Sidebar -->
   <aside class="bg-[#1a120b] text-white w-64 flex-shrink-0 transition-all duration-300 ease-in-out overflow-y-auto" 
          :class="sidebarOpen ? 'ml-0' : '-ml-64'">
-    <div class="p-6 flex items-center justify-between border-b border-stone-800 sticky top-0 bg-[#1a120b] z-10">
-      <span class="text-2xl font-bold tracking-widest text-[#a27b5c]">SI-TERNAK</span>
+    <div class="p-6 flex items-center gap-4 border-b border-stone-800 sticky top-0 bg-[#1a120b] z-10">
+      <img src="<?= base_url('assets/img/logo-sinjai.png') ?>" alt="Logo" class="w-10 h-10 object-contain">
+      <span class="text-xl font-bold tracking-widest text-[#a27b5c]">SI-TERNAK</span>
     </div>
     <nav class="mt-6 px-4 pb-10 space-y-2">
       <!-- Main Section -->

@@ -29,8 +29,8 @@
     
     <!-- Logo & Title -->
     <div class="text-center mb-10">
-        <div class="inline-flex items-center justify-center w-20 h-20 bg-[#1a120b] rounded-3xl shadow-xl mb-6 transform rotate-3 hover:rotate-0 transition-transform duration-500">
-            <i class="fas fa-paw text-[#a27b5c] text-3xl"></i>
+        <div class="inline-flex items-center justify-center w-24 h-24 bg-white rounded-3xl shadow-xl mb-6 transform rotate-3 hover:rotate-0 transition-transform duration-500 p-4 border border-stone-100">
+            <img src="<?= base_url('assets/img/logo-sinjai.png') ?>" alt="Logo Sinjai" class="w-full h-full object-contain">
         </div>
         <h1 class="text-4xl font-bold text-[#1a120b] tracking-widest uppercase">SI-TERNAK</h1>
         <p class="text-stone-500 mt-2 font-medium">Sistem Informasi Pengelolaan Ternak</p>
