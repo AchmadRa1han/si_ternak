@@ -6,22 +6,16 @@ use CodeIgniter\Model;
 
 class DatPetugasModel extends Model
 {
-    protected $table            = 'dat_petugas';
+    protected $table            = 'petugas_lapangan';
     protected $primaryKey       = 'id_petugas';
-    protected $useAutoIncrement = true;
+    protected $useAutoIncrement = false;
     protected $returnType       = 'object';
     protected $allowedFields    = [
-        'id_petugas', 'username', 'password', 'nama_lengkap', 'nama_petugas', 'email', 
-        'nip', 'pangkat', 'jabatan', 'role', 'no_hp', 'is_active', 'last_login'
+        'id_petugas', 'nama_petugas', 'nip', 'pangkat', 'jabatan', 'no_hp', 'is_active'
     ];
 
-    public function getByUsername($username)
+    public function getByNik($nip)
     {
-        return $this->where('username', $username)->first();
-    }
-
-    public function updateLastLogin($id_petugas)
-    {
-        return $this->update($id_petugas, ['last_login' => date('Y-m-d H:i:s')]);
+        return $this->where('nip', $nip)->first();
     }
 }

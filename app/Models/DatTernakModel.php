@@ -6,20 +6,19 @@ use CodeIgniter\Model;
 
 class DatTernakModel extends Model
 {
-    protected $table            = 'dat_ternak';
-    protected $primaryKey       = 'id_ternak';
-    protected $useAutoIncrement = true;
+    protected $table            = 'hewan';
+    protected $primaryKey       = 'id_hewan';
+    protected $useAutoIncrement = false;
     protected $returnType       = 'object';
     protected $allowedFields    = [
-        'id_ternak', 'id_pemilik', 'nama_hewan', 'bangsa_induk', 
-        'jenis_kelamin', 'tanggal_lahir', 'status'
+        'id_hewan', 'id_peternak', 'nama_hewan', 'bangsa_induk', 'jenis_kelamin', 'tanggal_lahir', 'status'
     ];
 
     public function getAll()
     {
         return $this->db->table($this->table)
-            ->select('dat_ternak.*, dat_pemilik.nama_peternak')
-            ->join('dat_pemilik', 'dat_pemilik.id_pemilik = dat_ternak.id_pemilik', 'left')
+            ->select('hewan.*, peternak.nama_peternak')
+            ->join('peternak', 'peternak.id_peternak = hewan.id_peternak', 'left')
             ->get()->getResult();
     }
 }

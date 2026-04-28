@@ -33,17 +33,25 @@ class Master extends BaseController
              . view('template/footer');
     }
 
+    public function petugas_add()
+    {
+        $data['title'] = "Tambah Petugas";
+        return view('template/header', $data)
+             . view('master/petugas/v_form', $data)
+             . view('template/footer');
+    }
+
+    public function petugas_edit($id)
+    {
+        $data['title'] = "Edit Petugas";
+        $data['petugas'] = $this->petugasModel->find($id);
+        return view('template/header', $data)
+             . view('master/petugas/v_form', $data)
+             . view('template/footer');
+    }
+
     public function petugas_store()
     {
-        $rules = [
-            'id_petugas'   => 'required|is_unique[petugas_lapangan.id_petugas]',
-            'nama_petugas' => 'required'
-        ];
-
-        if (!$this->validate($rules)) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
-        }
-
         $this->petugasModel->insert($this->request->getPost());
         session()->setFlashdata('success', 'Data berhasil ditambahkan.');
         return redirect()->to(base_url('master/petugas'));
@@ -71,6 +79,23 @@ class Master extends BaseController
         
         return view('template/header', $data)
              . view('master/peternak/v_index', $data)
+             . view('template/footer');
+    }
+
+    public function peternak_add()
+    {
+        $data['title'] = "Tambah Peternak";
+        return view('template/header', $data)
+             . view('master/peternak/v_form', $data)
+             . view('template/footer');
+    }
+
+    public function peternak_edit($id)
+    {
+        $data['title'] = "Edit Peternak";
+        $data['peternak'] = $this->peternakModel->find($id);
+        return view('template/header', $data)
+             . view('master/peternak/v_form', $data)
              . view('template/footer');
     }
 
@@ -103,6 +128,25 @@ class Master extends BaseController
         
         return view('template/header', $data)
              . view('master/hewan/v_index', $data)
+             . view('template/footer');
+    }
+
+    public function hewan_add()
+    {
+        $data['title'] = "Tambah Hewan";
+        $data['peternak_list'] = $this->peternakModel->findAll();
+        return view('template/header', $data)
+             . view('master/hewan/v_form', $data)
+             . view('template/footer');
+    }
+
+    public function hewan_edit($id)
+    {
+        $data['title'] = "Edit Hewan";
+        $data['hewan'] = $this->hewanModel->find($id);
+        $data['peternak_list'] = $this->peternakModel->findAll();
+        return view('template/header', $data)
+             . view('master/hewan/v_form', $data)
              . view('template/footer');
     }
 
